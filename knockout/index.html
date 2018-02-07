@@ -10,30 +10,7 @@
 		<script type="application/javascript" src="../js/jquery-1.11.1.min.js"></script>
 	    <script type="application/javascript" src="../js/bootstrap.min.js"></script>
   <style>
-  table{border-collapse:collapse;border-spacing:0}
-  table {
-	font-family: verdana,arial,sans-serif;
-	font-size:11px;
-	color:#333333;
-	border-width: 1px;
-	border-color: #666666;
-	border-collapse: collapse;
-}
-table th {
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #666666;
-	background-color: #dedede;
-}
-table td {
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #666666;
-	background-color: #ffffff;
-}
-  #content1{padding:16px;}
+
   </style>
 
   <script type="text/javascript" src="../js/knockout30.js"></script>
@@ -58,51 +35,37 @@ table td {
 				<button type="button" class="btn btn-danger">搜索</button>
 			</form>
 		</nav>
-  
-	<div id="content1">
-		Year:<input data-bind="value:Year"><br/>
-		Month:<input data-bind="value:Month"><br/>
-		Day:<input data-bind="value:Day"><br/>
-		Date:<span data-bind="html: Date " ></span><br/>
-		<input data-bind="value:Date" />
-	</div>
-
-	
+ <div class="container">
+<P>"Visiable绑定"</P>
+<div data-bind="visible:shounldSee">是的，我就是被visibale属性绑定了！</div>
+</br>
+<p>"foreach绑定"</p>
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+	<tr><th>First Name</th><th>Last Name</th></tr>
+  </thead>
+  <tbody data-bind="foreach:people">
+	<tr>
+		<td data-bind="text:firstName"></td>
+		<td data-bind="text:lastName"></td>
+	</tr>
+  </tbody>
+</table>
+<br/>
+<p>带有添加/删除的例子</p>
+<h3>People</h3>
+<ul data-bind="foreach:person" class="list-unstyled">
+	<li >
+		Name at position<span data-bind="text:$index"></span>:
+		<span data-bind="text:name"></span>
+		<a href="#" data-bind="click:$parent.removePerson">Remove</a>
+	</li>
+</ul>
+<button data-bind="click:addPerson">Add</button>
+</div>
 	<script type="text/javascript" src="../js/jQuery183.js"></script>
-	<script>
-
-	
-		$(document).ready(function(){
-
-
-
-			var  ViewModel = function(){
-				var self = this;
-				self.Year = ko.observable("");
-				self.Month = ko.observable("");
-				self.Day = ko.observable("");
-				
-				self.Date = ko.pureComputed({	
-					write: function(value){
-						var indexOfYear = value.indexOf('年');
-						var indexOfMonth=value.indexOf('月');
-						var indexOfDay=value.indexOf('日');
-						self.Year(value.substring(0,indexOfYear));
-						self.Month(value.substring(indexOfYear+1,indexOfMonth));
-						self.Day(value.substring(indexOfMonth+1,indexOfDay));
-					},
-					read: function(){
-						return self.Year()+'年'+self.Month()+'月'+self.Day()+'日';
-					},
-					owner:self
-				});
-			};
-			var  currentViewModel = new ViewModel();
-			ko.applyBindings(currentViewModel);
-
-
-		});
+	<script type="text/javascript" src="./ko.js">
+		
 	</script>
-	
   </body>
 </html>
