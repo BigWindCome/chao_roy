@@ -25,3 +25,8 @@ wbr:after{content:"\00200B"}
 textarea{resize:none}
 input[type=text]:focus,input[type=password]:focus,textarea:focus{outline:0}ol{padding:0 0 0 20px}
 textarea{font-family:Arial;overflow:auto}input{font-size:14px}.clearfix{zoom:1;_height:1px}.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.helloBlock{
+	background-color: #f00;
+	width: 100px;
+	border: 1px solid green;
+}
