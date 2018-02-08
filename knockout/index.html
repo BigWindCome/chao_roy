@@ -111,6 +111,55 @@
 	</ol>
 	<button data-bind="click:$parent.clearResults">Clear tweets</button>
 </div>
+
+<p>模板component的使用</p>
+<h4>First instance,without parameters</h4>
+<div data-bind='component:"message-editor"'></div>
+
+<h4>Second instance,without parameters</h4>
+<div data-bind='component:{name:"message-editor",
+	params:{initialText:"Hello Wordl"}
+}'></div>
+<p>Click blinds</p>
+<div>
+	You will click <span data-bind="text:numberofClicks"></span>times
+	<button data-bind="click:addNumber">Click me</button>
+	<button data-bind="click:setZero">setZero</button>
+<ul data-bind="foreach:places">
+	<li data-bind="text:$data,event:{mouseover:$parent.logMouseover}">	
+	</li>
+</ul>
+<p>You seem to interested in: <span data-bind="text:lastInterest"></span></p>
+</div>
+<p>enable绑定</p>
+<p>
+	<input type="checkbox" data-bind="checked:hasCellphone">I have cellphone
+</p>
+<p>
+	Your cellphone number:
+	<input type="text" data-bind="value:cellphone,enable:hasCellphone" />
+</p>
+
+<p>select绑定</p>
+<p>Select a country:
+	<select
+		data-bind="options:countries,
+	optionsCaption:'Choose one...',
+	value:selectedCountry,
+	valueAllowUnset:false
+		"
+	></select>
+</p>
+
+<p>
+	First value:<input data-bind="textInput:firstValue" />
+</p>
+<p>
+	Second value:<input data-bind="value:secondValue"/>
+</p>
+<p>
+	Third value:<input data-bind="value:firstValue().length>8"/>
+</p>
  </div>
 	<script type="text/javascript" src="../js/jQuery183.js"></script>
 	<script type="text/javascript" src="./ko.js">
