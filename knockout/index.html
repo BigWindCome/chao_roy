@@ -160,6 +160,41 @@
 <p>
 	Third value:<input data-bind="value:firstValue().length>8"/>
 </p>
+<P>textInput绑定</P>
+<p>Login Name:<input type="text" name="account" data-bind:"textInput:usrName"></p>
+<p>Password:<input type="password" name="password" data-bind="textInput:userPassword"></p>
+<p>"hasFocus"绑定</p>
+<input type="text"data-bind="hasFocus:isSelected">
+<button data-bind="click:setFocus,text:focusButton"></button></br>
+<p>Click to edit</p>
+<p>
+	Name:<b data-bind="visible:!editing(),text:name,click:edit"></b>
+	<input data-bind="visible:editing,value:name,hasFocus:editing">
+</p>
+<p><em>点击Name即可编辑</em></p>
+<p>Checked绑定</p>
+<p>Send me spam: <input type="checkbox" data-bind="checked: wantsSpam" /></p>
+<div data-bind="visible: wantsSpam">
+    Preferred flavors of spam:
+    <div><input type="radio" name="flavorGroup" value="cherry" data-bind="checked: spamFlavors" /> Cherry</div>
+    <div><input type="radio" name="flavorGroup" value="almond" data-bind="checked: spamFlavors" /> Almond</div>
+    <div><input type="radio" name="flavorGroup" value="msg" data-bind="checked: spamFlavors" /> Monosodium Glutamate</div>
+</div>
+<p>checkedValue</p>
+<!-- ko foreach: items -->
+	<input type="checkbox" data-bind="checkedValue:$data,checked:$root.chosenItems">
+	<span data-bind="text:itemName"></span>
+<!-- /ko -->
+<!-- ko foreach: chosenItems -->
+<div data-bind="text:itemName"></div>
+<!-- /ko -->
+</br>
+<p>options绑定</p>
+<select size="3" data-bind="options:myItems2,optionsText:'name',optionsValue:'id',optionsAfterRender:setOptionDisable">
+</select>
+</br>
+ViewModel:
+<pre data-bind="text:ko.toJSON($root,null,2)"></pre>
  </div>
 	<script type="text/javascript" src="../js/jQuery183.js"></script>
 	<script type="text/javascript" src="./ko.js">
