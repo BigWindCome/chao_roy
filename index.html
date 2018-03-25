@@ -27,7 +27,59 @@
 				<button type="button" class="btn btn-danger">搜索</button>
 			</form>
 		</nav>
-		
+		input控制字数
+		<input type="text" name="input" size="5" maxlength="10" value="初始化" /><br/>
+		textarea控制字数
+		<textarea rows="3" cols="20">初始化</textarea><br/>
+		数值范围的input
+		<input type="number" min="0" max="100" step="5" name="count" id="count" /><br>
+		输入模式的问题
+		<input type="text" pattern="\d+" name="count2" id="count2"><br>
+		select的问题
+		<select name="location" id="selLocation">
+			<option value="cn">China</option>
+			<option value="jp">Japan</option>
+			<option value="Am">America</option>
+			<option value="ge">German</option>
+		</select><br>
+		富文本编辑
+		<div class="editable" id="richedit" style="height: 100px;width: 100px;" contenteditable></div><br>
+		使用Canvas绘图
+		<canvas id="drawing" width="200" height="200">A drawing of something.</canvas><br>
+		不带数字的时钟表盘
+		<canvas id="drawing2" width="200" height="200">A Clock without times.</canvas><br>
 	</body>
-	
+	<script type="text/javascript">
+		var pattern = document.getElementById("count2").pattern;
+		var selectBox = document.getElementById("selLocation");
+		var newOption=new Option("Option text","op");
+		selectBox.add(newOption,undefined);
+		var div = document.getElementById("richedit");
+		div.contenteditable = "true";
+		var drawing = document.getElementById("drawing");
+		var drawing2 =  document.getElementById("drawing2");
+		if (drawing.getContext) {
+			var context = drawing.getContext("2d");
+			context.fillStyle="ff0000";
+			context.fillRect(10,10,50,50);
+
+			context.fillStyle="rgba(0,0,255,0.5)";
+			context.fillRect(30,30,50,50);
+
+			context.clearRect(40,40,10,10);
+		}
+		if (drawing2.getContext) {
+			var context = drawing2.getContext("2d");
+			context.beginPath();
+
+			context.arc(100,100,99,0,2*Math.PI,false);
+			context.moveTo(194,100);
+			context.arc(100,100,94,0,2*Math.PI,false);
+			context.moveTo(100,100);
+			context.lineTo(100,15);
+			context.moveTo(100,100);
+			context.lineTo(35,100);
+			context.stroke();
+		}
+	</script>
 </html>

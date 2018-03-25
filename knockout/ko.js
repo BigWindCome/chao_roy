@@ -1,4 +1,24 @@
 $(document).ready(function(){
+	ko.extenders.required = function(target, overrideMessage) {
+			    // 添加子可观察对象
+			    target.hasError = ko.observable();
+			    target.validationMessage = ko.observable();
+			 
+			    // 执行验证的函数
+			    function validate(newValue) {
+			       target.hasError(newValue ? false : true);
+			       target.validationMessage(newValue ? "" : overrideMessage || "This field is required");
+			    }
+			 
+			    // 初始验证
+			    validate(target());
+			 
+			    // 当值发生变化的时候进行验证
+			    target.subscribe(validate);
+			 
+			    // 返回源可观察对象
+			    return target;
+			};
 
 			var  ViewModel = function(){
 				var self = this;
@@ -30,6 +50,7 @@ $(document).ready(function(){
             { name: 'Item 3', id: 3, disable: ko.observable(true)},
             { name: 'Item 4', id: 4, disable: ko.observable(false)}
         ];
+        var arr9 =['Japan', 'Bolivia', 'New Zealand','guangzhou'];
             	var bl1={
             latitude:  51.5001524,
             longitude: -0.1262362
@@ -42,6 +63,7 @@ $(document).ready(function(){
 				self.myItems= ko.observableArray(arr4);
 				self.capitals= ko.observableArray(arr5);
 				self.countries= ko.observableArray(arr6);
+				self.countries2= ko.observableArray(arr9);
 				self.city= ko.observable("London");
 				self.coords= ko.observable(bl1);
 				self.twitterName=ko.observable("@example");
@@ -60,7 +82,9 @@ $(document).ready(function(){
 				self.editing = ko.observable(false);
 				self.items= ko.observableArray(arr7);
 				self.myItems2 = ko.observableArray(arr8);
-       			self.chosenItems = ko.observableArray();
+       			self.chosenItems = ko.observableArray();	
+       			self.firstName = ko.observable().extend({ required: "Please enter a first name" });
+    			self.lastName = ko.observable().extend({ required: "" });
 
        			self.setOptionDisable=function(option,item){
        				ko.applyBindingsToNode(option,{disable:item.disable},item);
@@ -108,11 +132,25 @@ $(document).ready(function(){
 				self.logMouseover = function(data){
 					self.lastInterest(data);
 				}
-			
+				self.validation = function(){
+					if(!(self.firstName.hasError()||self.lastName.hasError())){
+						return true;
+					}
+					return false;
+				}
+				// self.firstName.subscribe(function(data){
+				// 	if(!self.firstName.hasError()){
+				// 		if(self.countries.indexOf("tianjin")<0)
+				// 		self.countries.push("tianjin");
+				// 	}
+				// })
 			};
-
+			
 			var  currentViewModel = new ViewModel();
 			currentViewModel.spamFlavors.push("msg");
+			// if(!(currentViewModel.firstName.hasError()||currentViewModel.lastName.hasError())){
+			// 	currentViewModel.countries.push("tianjin");
+			// };
 				ko.components.register('message-editor',{
 				viewModel:function(params){
 					this.text = ko.observable(params && params.initialText || '');
@@ -120,7 +158,7 @@ $(document).ready(function(){
 				template:'Message:<input data-bind="textInput:text" />'
 				+ '(length: <span data-bind="text:text().length"  />)'
 			});
-		
+			
 			ko.applyBindings(currentViewModel);
 
 
